@@ -27,9 +27,19 @@ end
 describe('viewing all of the lists', {:type => :feature}) do
   it('allows a user to see all of the lists that have been created') do
     visit('/')
-    click_link('View All Lists')
     list = List.new({:name => 'Epicodus Homework'})
     list.save()
+    click_link('View All Lists')
     expect(page).to have_content('Epicodus Homework')
+  end
+end
+
+describe('viewing tasks on a list', {:type => :feature}) do
+  it('allows a user to see all of the tasks on a list') do
+    list = List.new({:name => 'Epicodus Homework'})
+    list.save()
+    visit('/lists')
+    click_link('Epicodus Homework')
+    expect(page).to have_content('')
   end
 end
