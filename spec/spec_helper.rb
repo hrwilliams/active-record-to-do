@@ -1,13 +1,16 @@
-require "rspec"
-require "pg"
-require "list"
-require "task"
+ENV['RACK_ENV'] = 'test'
+require("rspec")
+require("pg")
+require("pry")
+require('sinatra-activerecord')
+# require("list")
+require("task")
 
-DB = PG.connect({:dbname => "to_do_test"})
 
 RSpec.configure do |config|
   config.after(:each) do
-    DB.exec("DELETE FROM lists *;")
-    DB.exec("DELETE FROM tasks *;")
+    Task.all().each() do |task|
+      task.destroy()
+    end
   end
 end
