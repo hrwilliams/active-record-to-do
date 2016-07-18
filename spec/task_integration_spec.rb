@@ -4,22 +4,21 @@ require('./app')
 Capybara.app = Sinatra::Application
 set(:show_exceptions, false)
 
-describe('adding a new list', {:type => :feature}) do
-  it('allows a user to click a list to see the tasks and details for it') do
+describe('adding a new task', {:type => :feature}) do
+  it('allows a user to add a task to list') do
     visit('/')
-    click_link('Add New List')
-    fill_in('name', :with =>'Epicodus Work')
-    click_button('Add List')
+    fill_in('description', :with =>'study')
+    click_button('Add task')
     expect(page).to have_content('Success!')
   end
 end
 
 describe('viewing all of the lists', {:type => :feature}) do
   it('allows a user to see all of the lists that have been created') do
+    visit('/')
+    click_link('View All Lists')
     list = List.new({:name => 'Epicodus Homework'})
     list.save()
-    visit('/')
-    click_button('View All Lists')
     expect(page).to have_content(list.name)
   end
 end

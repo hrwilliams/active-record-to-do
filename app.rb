@@ -11,6 +11,11 @@ get('/') do
   @tasks = Task.all()
   erb(:index)
 end
+get('/lists')
+  @lists = List.all()
+  erb(:lists)
+end
+
 post('/tasks') do
   description = params.fetch('description')
   task = Task.new({:description => description})
